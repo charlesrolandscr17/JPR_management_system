@@ -1,0 +1,40 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "migrate",
+            "type": "shell",
+            "command": "python manage.py migrate",
+            "problemMatcher": []
+        },
+        {
+            "label": "makemigrations",
+            "type": "shell",
+            "command": "python manage.py makemigrations",
+            "problemMatcher": []
+        },
+        {
+            "label": "deactivate",
+            "type": "shell",
+            "command": "conda deativate"
+        },
+        {
+            "label": "ve",
+            "type": "shell",
+            "command": "pipenv shell"
+        },
+        {
+            "label": "mm",
+            "type": "shell",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "ve",
+                "deactivate",
+                "makemigrations"
+            ],
+            "problemMatcher": []
+        }
+    ]
+}
