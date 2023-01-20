@@ -4,14 +4,17 @@ import datetime as dt
 
 # Create your models here.
 kinds_male = [("nnume", "nnume"), ("ndaawo", "ndaawo"), ("kalume", "kalume")]
-kinds_female = [("mugongo", "mugongo"), ("nduusi", "nduusi"), ("kaluusi", "kaluusi")]
+kinds_female = [("mugongo", "mugongo"), ("nduusi",
+                                         "nduusi"), ("kaluusi", "kaluusi")]
 genders = [("M", "Male"), ("F", "Female")]
 
 
 class Male(models.Model):
     id = (models.CharField(max_length=255, primary_key=True))
-    mother = models.ForeignKey("Female", on_delete=models.SET_NULL, null=True, default=None, blank=True)
-    father = models.ForeignKey("Male", on_delete=models.SET_NULL, null=True, default=None, blank=True)
+    mother = models.ForeignKey(
+        "Female", on_delete=models.SET_NULL, null=True, default=None, blank=True)
+    father = models.ForeignKey(
+        "Male", on_delete=models.SET_NULL, null=True, default=None, blank=True)
     dob = models.DateField(auto_now=False, null=True)
     category = models.CharField(max_length=10, choices=kinds_male)
 
@@ -30,8 +33,7 @@ class Male(models.Model):
             if Male.objects.filter(id=self.id):
                 raise Exception("Pk already exists")
             super(Male, self).save()
-            
-        
+
         if self.father and self.mother:
             mate = Mating(male=self.father, female=self.mother)
             mate.save()
@@ -47,12 +49,16 @@ class Male(models.Model):
 
 class Female(models.Model):
     id = models.CharField(max_length=255, primary_key=True)
-    mother = models.ForeignKey("Female", on_delete=models.SET_NULL, null=True, default=None, blank=True)
-    father = models.ForeignKey("Male", on_delete=models.SET_NULL, null=True, default=None, blank=True)
+    mother = models.ForeignKey(
+        "Female", on_delete=models.SET_NULL, null=True, default=None, blank=True)
+    father = models.ForeignKey(
+        "Male", on_delete=models.SET_NULL, null=True, default=None, blank=True)
     is_pregnant = models.BooleanField(default=False)
     dob = models.DateField(auto_now=False, null=True)
-    estDob = models.DateField(auto_now=False, null=True, blank=True, default=None)
-    gestdate = models.DateField(auto_now=False, null=True, blank=True, default=dt.datetime.now())
+    estDob = models.DateField(
+        auto_now=False, null=True, blank=True, default=None)
+    gestdate = models.DateField(
+        auto_now=False, null=True, blank=True, default=dt.datetime.now())
     category = models.CharField(max_length=10, choices=kinds_female)
 
     def get_class_name(self):
@@ -79,8 +85,7 @@ class Female(models.Model):
                 self.estDob = dt.timedelta(hours=3600) + self.gestdate
                 print(self.estDob)
             super(Female, self).save()
-            
-        
+
         if self.father and self.mother:
             mate = Mating(male=self.father, female=self.mother)
             mate.save()
@@ -116,7 +121,8 @@ class Mating(models.Model):
 class Employee(models.Model):
     name = models.CharField(max_length=50)
     salary = models.IntegerField()
-    last_payment = models.DateField(auto_now=False, blank=True, null=True, default=dt.date.today())
+    last_payment = models.DateField(
+        auto_now=False, blank=True, null=True, default=dt.date.today())
     salary_paid = models.BooleanField()
 
     def due(self):
@@ -128,10 +134,10 @@ class Employee(models.Model):
             self.due_date = self.last_payment + dt.timedelta(hours=720)
 
         self.save()
-        
+
     def get_class_name(self):
         return self.__class__.__name__
-    
+
     def price(self):
         return self.salary
 
@@ -143,7 +149,8 @@ class MSold(models.Model):
 
 
 class FSold(models.Model):
-    f_id = models.ForeignKey(Female, on_delete=models.CASCADE, primary_key=True)
+    f_id = models.ForeignKey(
+        Female, on_delete=models.CASCADE, primary_key=True)
     price = models.IntegerField()
     DoS = models.DateField(auto_now=False, null=True, blank=True)
 
@@ -162,6 +169,7 @@ class FDead(models.Model):
 
     def get_class_name(self):
         return self.__class__.__name__
+
 
 class Dewormer(models.Model):
     name = models.CharField(max_length=250)
@@ -221,7 +229,7 @@ class Others(models.Model):
 
     def get_class_name(self):
         return self.__class__.__name__
-    
+
 
 class PreviousProfit(models.Model):
     name = models.CharField(max_length=250, primary_key=True)
@@ -230,5 +238,3 @@ class PreviousProfit(models.Model):
 
     def get_class_name(self):
         return self.__class__.__name__
-    
-

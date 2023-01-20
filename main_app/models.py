@@ -10,4 +10,5 @@ class Ambition(models.Model):
 
 
 class Todo(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, primary_key=True)
+    complete = models.BooleanField(default=False)

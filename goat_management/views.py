@@ -35,8 +35,8 @@ def index(request, search=None):
 
     if search == "bred":
         mates = Mating.objects.filter(male=request.GET.get("bred")) \
-        if Mating.objects.filter(male=request.GET.get("bred")) \
-        else Mating.objects.filter(female=request.GET.get("bred"))
+            if Mating.objects.filter(male=request.GET.get("bred")) \
+            else Mating.objects.filter(female=request.GET.get("bred"))
         context = {"female": female,
                    "male": male,
                    "todos": todo,
@@ -46,7 +46,8 @@ def index(request, search=None):
                    "mates": mates}
 
     if search == "goat":
-        goats = search_for(request=request.GET.get("attr"), query=request.GET.get("goat"))
+        goats = search_for(request=request.GET.get(
+            "attr"), query=request.GET.get("goat"))
         context = {"female": female,
                    "male": male,
                    "todos": todo,
@@ -116,6 +117,7 @@ def check_dead_or_sold(id):
         return False
     return True
 
+
 def summary(request, target=None):
     expenditure = []
     all = [*Drug.objects.all(), *Employee.objects.all(), *Feed.objects.all(), *Vaccine.objects.all(),
@@ -125,17 +127,17 @@ def summary(request, target=None):
         "models": Add_On_1.total_expenditure(),
         "add_on": Add_On_1(),
         "all": all,
-        "total":Add_On_1.exp_totals(Add_On_1.total_expenditure()),
-        "tables": ["None", "Drug","Acaricide","Dewormer","Employee","Vaccine","Feeds","Others"]
+        "total": Add_On_1.exp_totals(Add_On_1.total_expenditure()),
+        "tables": ["None", "Drug", "Acaricide", "Dewormer", "Employee", "Vaccine", "Feeds", "Others"]
     }
     return render(request, 'summary.html', context)
-          
-          
+
+
 def redirect_to_summary(request):
     return HttpResponseRedirect("/goats/summary")
 
+
 def toggle_todo(request, name, checked):
-    # todo = Todos.objects.get(name=)
     todo = Todo(name=name, complete=checked.capitalize())
     todo.save()
     return HttpResponseRedirect("/goats")
