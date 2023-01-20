@@ -138,6 +138,7 @@ def redirect_to_summary(request):
 
 
 def toggle_todo(request, name, checked):
+    # todo = Todos.objects.get(name=)
     todo = Todo(name=name, complete=checked.capitalize())
     todo.save()
     return HttpResponseRedirect("/goats")

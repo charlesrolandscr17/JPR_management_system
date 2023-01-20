@@ -9,7 +9,8 @@ class Add_On_1:
         return int(totals[0] - totals[1])
 
     def totals(self):
-        expenditure = [Acaricide, Dewormer, Vaccine, Feed, Drug, Others, Employee]
+        expenditure = [Acaricide, Dewormer,
+                       Vaccine, Feed, Drug, Others, Employee]
         incomes = [MSold, FSold]
         total_income, total_expenditure = 0, 0
 
@@ -55,7 +56,8 @@ class Add_On_1:
             PP = PreviousProfit.objects.get(name="Total")
             if PP.amount != self.profit():
                 percent = self.profit() / abs(PP.amount) * 100
-                PP = PreviousProfit(name="Total", amount=self.profit(), percent=int(percent))
+                PP = PreviousProfit(
+                    name="Total", amount=self.profit(), percent=int(percent))
                 PP.save()
         else:
             PP = PreviousProfit(name="Total", amount=self.profit())
@@ -146,20 +148,20 @@ class Add_On_1:
         data = [total_income, total_expenditure]
 
         return labels, data
-    
+
     def available(check_func):
         male_num = 0
         female_num = 0
         for i in Male.objects.all():
             if check_func(i.id):
                 male_num += 1
-        
+
         for i in Female.objects.all():
             if check_func(i.id):
                 female_num += 1
-                
+
         return male_num, female_num
-    
+
     def is_pregnant():
         pregnant_num = 0
         for i in Female.objects.all():
