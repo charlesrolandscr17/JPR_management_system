@@ -1,1 +1,1 @@
-web: gunicorn JPR_management_system.wsgi
+web: gunicorn JPR_management_system.wsgi --log-file
