@@ -54,7 +54,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CRON_CLASSES=[
+CRON_CLASSES = [
     'main_app.cron.UpdateDue',
 ]
 
@@ -84,8 +84,12 @@ WSGI_APPLICATION = 'JPR_management_system.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        "USER": 'postgres',
+        "PASSWORD": 'vRj9WjQd6ngr1zdxOANh',
+        "HOST": 'containers-us-west-184.railway.app',
+        "PORT": '6077',
     }
 }
 
