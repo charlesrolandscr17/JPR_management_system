@@ -112,8 +112,7 @@ def remove_todo(request, name):
 
 
 def check_dead_or_sold(id):
-    if FDead.objects.filter(f_id=id) or MDead.objects.filter(m_id=id) or MSold.objects.filter(m_id=id) or FSold.objects \
-            .filter(f_id=id):
+    if FDead.objects.filter(f_id=id) or MDead.objects.filter(m_id=id) or MSold.objects.filter(m_id=id) or FSold.objects.filter(f_id=id):
         return False
     return True
 
