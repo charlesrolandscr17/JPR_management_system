@@ -89,7 +89,7 @@ WSGI_APPLICATION = 'JPR_management_system.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': config("ENGINE"),
         'NAME': config("NAME"),
         "USER": config("USER"),
         "PASSWORD": config("PASSWORD"),
